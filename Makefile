@@ -18,12 +18,18 @@ format:
 	black *.py
 
 all: install lint test format
+
 app:
 	python3 app.py
+pull:#pull of docker hub to local
+	docker pull ramr2900/flask-random  
+run-h:#deploy the docker pull
+	docker run -it -p 127.0.0.1:8080:8080 --name flask-random ramr2900/flask-random  
 build:#Docker
 	docker build . -t flask-random
-run:
+run:#local
 	docker run -it -p 127.0.0.1:8080:8080 --name flask-random flask-random
+
 start:
 	docker start flask-random
 stop:

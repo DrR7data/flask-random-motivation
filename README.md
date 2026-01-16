@@ -6,6 +6,11 @@
 * Install:  `make all`
 * Run:  `python app.py`
 
+## Deploy in docker 
+```
+docker run -it -p 127.0.0.1:8080:8080 --name flask-random ramr2900/flask-random  
+```
+
 
 [You can view it heve](https://flask-random-motivation.vercel.app/)
 
