@@ -27,8 +27,16 @@ run-h:#deploy the docker pull
 	docker run -it -p 127.0.0.1:8080:8080 --name flask-random ramr2900/flask-random  
 build:#Docker
 	docker build . -t flask-random
+build-d:
+	docker buildx build \
+	--platform linux/amd64,linux/arm64 \
+	--tag ramr2900/flask-random:latest \
+	--push \
+	.   
 run:#local
 	docker run -it -p 127.0.0.1:8080:8080 --name flask-random flask-random
+run-h:#local
+	docker run -it -p 127.0.0.1:8080:8080 --name flask-random ramr2900/flask-random
 
 start:
 	docker start flask-random
