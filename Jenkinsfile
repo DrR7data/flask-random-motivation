@@ -1,25 +1,34 @@
 pipeline {
   agent any
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('ramr2900-dockerhub')
+    GITHUB_TOKEN=credentials('github_tokens')
+    IMAGE_NAME='drr7data/flask-random'
+    IMAGE_VERSION='latest'
   }
   stages {
-    stage('Build') {
+    stage('cleanup') {
       steps {
-        sh 'docker build -t ramr2900/flask-random:latest .'
+        sh 'docker system prune -a --volumes --force'
       }
     }
-    stage('Login') {
+    stage('build image') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION .'
       }
     }
-    stage('Push') {
+    stage('login to GHCR') {
       steps {
-        sh 'docker push ramr2900/flask-random:latest'
+        sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
+      }
+    }
+    stage('tag image') {
+      steps {
+        sh 'docker tag $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+      }
+    }
+    stage('push image') {
+      steps {
+        sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
       }
     }
   }
