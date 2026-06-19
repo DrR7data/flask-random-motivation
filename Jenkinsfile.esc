@@ -1,3 +1,4 @@
+//For work with jenkis and ECR
 pipeline {
   agent any
   options {
