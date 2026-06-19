@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    GITHUB_TOKEN=credentials('github_tokens')
+    GITHUB_TOKEN=credentials('git_tokens_jenkins')
     IMAGE_NAME='drr7data/flask-random'
     IMAGE_VERSION='latest'
   }
