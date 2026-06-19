@@ -33,7 +33,10 @@ exec:
 delete:
 	docker rm flask-random
 	docker rmi flask-random
-
+up:
+	docker compose up -d
+down:
+	docker compose down
 
 hello:# write for prove function of this file
 	@echo "Hello everyone, All Right"

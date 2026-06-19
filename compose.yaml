@@ -1,8 +1,8 @@
-x-aws-vpc: "vpc-0dece3d7dce2d0578"
+#x-aws-vpc: "vpc-0dece3d7dce2d0578"
 services:
   web:
-    image: ramr2900/flask-motivation-app:latest
+    image: ramr2900/flask-random:aws
     build:
       context: .
     ports:
-      - "8080:8080"
+      - "8082:8080"
